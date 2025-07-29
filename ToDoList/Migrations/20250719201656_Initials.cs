@@ -20,7 +20,7 @@ namespace ToDoList.Migrations
                     Item = table.Column<string>(type: "TEXT", nullable: false),
                     IsDone = table.Column<bool>(type: "INTEGER", nullable: false),
                     Comment = table.Column<string>(type: "TEXT", nullable: false),
-                    CompletionDate = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    CompletionDate = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {

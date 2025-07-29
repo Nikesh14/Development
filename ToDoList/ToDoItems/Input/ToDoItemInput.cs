@@ -1,5 +1,8 @@
-﻿using System.Runtime.Serialization;
+﻿using Microsoft.VisualBasic;
+using System.Runtime.Serialization;
+using System.Threading.Tasks;
 using System.Xml.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 #region Notes
 /*
@@ -54,19 +57,25 @@ namespace ToDoList.ToDoItems.Input
     [DataContract(Namespace = "", IsReference = false, Name = "ToDoItemInput")]
     public class ToDoItemInput
     {
-        [DataMember(Name = "ID", Order = 0)]
+        //ID to store to-do items
         public long ID { get; set; }
-
-        [DataMember(Name = "Item", Order = 1)]
-        public string Item { get; set; }
-
-        [DataMember(Name = "IsDone", Order = 2)]
-        public bool IsDone { get; set; }
-
-        [DataMember(Name = "Comment", Order = 3)]
-        public string Comment { get; set; }
-
-        [DataMember(Name = "CompletionDate", Order = 2)]
+        //A short description of the task.
+        [DataMember(Name = "Title", Order = 0)]
+        public string Title { get; set; }
+        //More details about the task. 
+        [DataMember(Name = "Description", Order = 1)]
+        public string Description { get; set; }
+        [DataMember(Name = "Status", Order = 2)]
+        //Indicates whether the task is new, in progress, or completed
+        public string Status { get; set; }
+        [DataMember(Name = "DueDate", Order = 3)]
+        //When the task should be finished. 
+        public DateTime DueDate { get; set; }
+        [DataMember(Name = "Priority", Order = 4)]
+        //How important the task is.  
+        public int Priority { get; set; }
+        //When the task is completed. 
+        [DataMember(Name = "CompletionDate", Order = 5)]
         public DateTime CompletionDate { get; set; }
     }
 }

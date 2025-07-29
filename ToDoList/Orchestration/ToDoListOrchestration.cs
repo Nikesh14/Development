@@ -1,8 +1,18 @@
-﻿using System.Runtime.Serialization;
+﻿using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
+using System.Runtime.Serialization;
 using System.Security.Cryptography.Xml;
 using System.Xml.Linq;
 using ToDoList.Abstractions;
+using ToDoList.Controllers.Data;
+using ToDoList.Service;
+using ToDoList.ToDoItems.Input;
 using ToDoList.ToDoItems.Output;
+
+using ToDoList.Service;
+using ToDoList.ToDoItems.Input;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 #region Notes
 /*
@@ -100,15 +110,26 @@ namespace ToDoList.Orchestration
     [DataContract(Namespace = "", IsReference = true, Name = "ToDoListOrchestration")]
     public class ToDoListOrchestration : IToDoListOrchestration
     {
-        public ToDoItem GetToDoListFromId(int id)
-        {
+        private readonly IToDoListServices service;
 
-            return new ToDoItem();
+        public ToDoListOrchestration(IToDoListServices service)
+        {
+            this.service = service;
         }
 
-        public void AddItemToList(ToDoItems.Input.ToDoItemInput input)
-        {
+        public Task<string> CreateTodoItemAsync(ToDoItemInput todoItem)
+            => service.CreateTodoItemAsync(todoItem);
 
-        }
+        public Task<List<ToDoItemInput>> GetAllTodoListContainingTitle(string title)
+            => service.GetAllTodoListContainingTitle(title);
+
+        public Task<List<ToDoItemInput>> GetAllTodoListItem()
+            => service.GetAllTodoListItem();
+
+        public Task<string> DeleteTodoItemById(long id)
+            => service.DeleteTodoItemById(id);
+
+        public Task<string> UpdateTodoItem(ToDoItemInput todoItem)
+            => service.UpdateTodoItem(todoItem);
     }
 }

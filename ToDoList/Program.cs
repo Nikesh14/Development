@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using ToDoList.Abstractions;
 using ToDoList.Controllers.Data;
+using ToDoList.Orchestration;
+using ToDoList.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +21,8 @@ builder.Services.AddDbContext<AppDbContext>
         Options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
     }
 );
+builder.Services.AddScoped<IToDoListServices, ToDoListServices>();
+//builder.Services.AddScoped<IToDoListOrchestration, ToDoListOrchestration>();
 
 var app = builder.Build();
 
